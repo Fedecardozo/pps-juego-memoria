@@ -49,3 +49,45 @@ body {
 .mb-1 {
   margin-bottom: 1rem;
 }
+
+.padre {
+  background-color: #83a5ab;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  color: #f7fff7;
+}
+@-webkit-keyframes rotate-center {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotate-center {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.container {
+  -webkit-animation: rotate-center 1s ease-in-out both;
+  animation: rotate-center 1s ease-in-out both;
+  text-align: center;
+  img {
+    width: 80%;
+  }
+}
+
+h2 {
+  font-weight: 900;
+  font-size: 2rem;
+}
