@@ -1,0 +1,70 @@
+<main>
+  <form [formGroup]="fg" class="form">
+    <div class="pyramid-loader">
+      <div class="wrapper">
+        <span class="side side1"></span>
+        <span class="side side2"></span>
+        <span class="side side3"></span>
+        <span class="side side4"></span>
+        <span class="shadow"></span>
+      </div>
+    </div>
+    <div class="form-title"><span>Inicia sesión </span></div>
+    <div class="title-2"><span>Bienvenido</span></div>
+    <div class="input-container">
+      <input
+        placeholder="Correo"
+        type="email"
+        class="input-mail"
+        formControlName="correo"
+      />
+      <span> </span>
+    </div>
+    <div class="cont-p">
+      @if(this.fg.controls['correo'].errors !== null &&
+      this.fg.controls["correo"].touched) { @if
+      (this.fg.controls['correo'].errors!['required']) {
+      <p>El campo esta vacio</p>
+      } @else if (this.fg.controls['correo'].errors!['email']) {
+      <p>No es un correo valido</p>
+      } }
+    </div>
+
+    <section class="bg-stars">
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
+    </section>
+
+    <div class="input-container">
+      <input
+        placeholder="Contraseña"
+        type="password"
+        class="input-pwd"
+        formControlName="clave"
+      />
+    </div>
+    <div class="cont-p">
+      @if(this.fg.controls['clave'].errors !== null &&
+      this.fg.controls["clave"].touched) { @if
+      (this.fg.controls['clave'].errors!['required']) {
+      <p>El campo esta vacio</p>
+      } }
+    </div>
+    <div class="container-btns">
+      <button class="btn-secondary" (click)="cargaUsuario(usuarios[0])">
+        Fede
+      </button>
+      <button class="btn-secondary" (click)="cargaUsuario(usuarios[1])">
+        Luna
+      </button>
+      <button class="btn-secondary" (click)="cargaUsuario(usuarios[2])">
+        Clari
+      </button>
+    </div>
+    <button class="submit" type="submit" (click)="acceder()">
+      <span class="sign-text">Iniciar Sesión</span>
+    </button>
+  </form>
+</main>
