@@ -24,4 +24,8 @@ export const routes: Routes = [
     canActivate: [authGuard],
     canDeactivate: [authDeactivateGuard],
   },
+  {
+    path: 'facil',
+    loadComponent: () => import('./components/facil/facil.page').then( m => m.FacilPage)
+  },
 ];

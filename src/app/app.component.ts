@@ -5,6 +5,8 @@ import {
   IonRouterOutlet,
   IonIcon,
   IonButton,
+  IonFabButton,
+  IonFab,
 } from '@ionic/angular/standalone';
 import { UserService } from './services/user.service';
 import { SplashScreen } from '@capacitor/splash-screen';
@@ -14,17 +16,21 @@ import { SplashScreen } from '@capacitor/splash-screen';
   templateUrl: 'app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [IonButton, IonIcon, IonApp, IonRouterOutlet],
+  imports: [IonFab, IonFabButton, IonButton, IonIcon, IonApp, IonRouterOutlet],
 })
 export class AppComponent {
   public router: Router = inject(Router);
   public auth: UserService = inject(UserService);
-  constructor() {
+  constructor() {}
+
+  ngOnInit(): void {
     this.router.navigateByUrl('splash');
   }
+
   ionViewDitEnter() {
     SplashScreen.hide();
   }
+
   async cerrarSesion() {
     await this.auth.cerrarSesion();
     this.router.navigateByUrl('/login');

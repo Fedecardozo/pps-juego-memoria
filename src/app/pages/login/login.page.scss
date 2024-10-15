@@ -91,6 +91,8 @@ p {
 }
 
 .submit {
+  position: relative;
+  display: block;
   margin-top: 1rem;
   padding: 8px;
   background: linear-gradient(90deg, #243949 0%, #517fa4 100%);
