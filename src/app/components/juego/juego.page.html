@@ -1,0 +1,63 @@
+<ion-fab vertical="top" horizontal="end">
+  <ion-fab-button color="tertiary" (click)="pausar()">
+    <i class="fa-solid fa-pause fa-lg"></i>
+  </ion-fab-button>
+  <ion-fab-list side="bottom">
+    @if(this.sonido) {
+    <ion-fab-button color="primary" (click)="sonidoPlayPause(false)">
+      <i class="fa-solid fa-volume-xmark fa-lg"></i>
+    </ion-fab-button>
+    } @else {
+    <ion-fab-button color="primary" (click)="sonidoPlayPause(true)">
+      <i class="fa-solid fa-volume-high fa-lg"></i>
+    </ion-fab-button>
+    }
+    <ion-fab-button color="danger" (click)="salir()">
+      <i class="fa-solid fa-arrow-left fa-lg"></i>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>
+
+<main class="main">
+  <ion-grid>
+    <ion-row class="mb-3">
+      <ion-col>
+        <header class="title"><span> FACIL</span></header>
+      </ion-col>
+    </ion-row>
+
+    @for (item of this.path; track $index) {
+
+    <ion-row>
+      <ion-col (click)="darVueltaCard($index+$index)">
+        @if(imagenes[$index+$index].mostrar){
+        <ion-card [color]="imagenes[$index+$index].color">
+          <img [src]="imagenes[$index+$index].path" alt="imagen" />
+        </ion-card>
+        }@else {
+        <ion-card color="light">
+          <div class="carta-falsa" color="light"><span>?</span></div>
+        </ion-card>
+        }
+      </ion-col>
+      <ion-col (click)="darVueltaCard($index+$index+1)">
+        @if(imagenes[$index+$index+1].mostrar) {
+        <ion-card [color]="imagenes[$index+$index+1].color">
+          <img [src]="imagenes[$index+$index+1].path" alt="imagen" />
+        </ion-card>
+        } @else {
+        <ion-card color="light">
+          <div class="carta-falsa" color="light"><span>?</span></div>
+        </ion-card>
+        }
+      </ion-col>
+    </ion-row>
+    }
+
+    <ion-row class="mt-2">
+      <ion-col>
+        <div class="subtitulo"><span>Tiempo: {{this.tiempo}}</span></div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</main>

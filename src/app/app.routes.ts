@@ -28,4 +28,16 @@ export const routes: Routes = [
     path: 'facil',
     loadComponent: () => import('./components/facil/facil.page').then( m => m.FacilPage)
   },
+  {
+    path: 'medio',
+    loadComponent: () => import('./components/medio/medio.page').then( m => m.MedioPage)
+  },
+  {
+    path: 'dificil',
+    loadComponent: () => import('./components/dificil/dificil.page').then( m => m.DificilPage)
+  },
+  {
+    path: 'juego',
+    loadComponent: () => import('./components/juego/juego.page').then( m => m.JuegoPage)
+  },
 ];
