@@ -58,6 +58,13 @@ export class FacilPage implements OnInit {
   segundos: number = 0;
   contadorBuenas: number = 0;
   router: Router = inject(Router);
+  //Agregar musica de juego
+  //Boton de pausa
+  //seguir jugando
+  //salir
+  //guardar en la base de datos
+  //preguntar si de verdad desea cerrar sesion
+  //Agregar animacion cuando doy vuelta una carta
 
   constructor() {
     for (let index = 0; index < this.path.length; index++) {
