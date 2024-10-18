@@ -19,6 +19,9 @@ import { UtilService } from 'src/app/services/util.service';
 import { Imagen } from 'src/app/models/imagen';
 import { Alert } from 'src/app/models/alert';
 import { Router } from '@angular/router';
+import { DbService } from 'src/app/services/db.service';
+import { Resultado } from 'src/app/models/resultado';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-facil',
@@ -44,6 +47,8 @@ import { Router } from '@angular/router';
 })
 export class FacilPage implements OnInit {
   util: UtilService = inject(UtilService);
+  fire: DbService = inject(DbService);
+  user: UserService = inject(UserService);
   path: string[] = [
     'assets/octopus.png',
     'assets/lion.png',
@@ -58,11 +63,11 @@ export class FacilPage implements OnInit {
   segundos: number = 0;
   contadorBuenas: number = 0;
   router: Router = inject(Router);
+  //guardar en la base de datos
   //Agregar musica de juego
   //Boton de pausa
   //seguir jugando
   //salir
-  //guardar en la base de datos
   //preguntar si de verdad desea cerrar sesion
   //Agregar animacion cuando doy vuelta una carta
 
@@ -116,11 +121,18 @@ export class FacilPage implements OnInit {
     }
   }
 
+  guardarDb() {
+    this.fire.agregarResultado(
+      new Resultado(this.user.correo || '', this.tiempo, 'facil')
+    );
+  }
+
   verificar() {
     if (this.carta1 && this.carta2 && this.carta1.path === this.carta2.path) {
       this.contadorBuenas++;
       if (this.contadorBuenas === this.path.length) {
         this.detenerTimer = true;
+        this.guardarDb();
         //Pregunto si queres seguir jugando
         Alert.exito('GANASTE!!!', '¿Desea seguir jugando?').then((res) => {
           if (res.isConfirmed) {
