@@ -18,6 +18,7 @@ import {
 import { UtilService } from 'src/app/services/util.service';
 import { Imagen } from 'src/app/models/imagen';
 import { Alert } from 'src/app/models/alert';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-facil',
@@ -56,6 +57,7 @@ export class FacilPage implements OnInit {
   tiempo: string = '00:00';
   segundos: number = 0;
   contadorBuenas: number = 0;
+  router: Router = inject(Router);
 
   constructor() {
     for (let index = 0; index < this.path.length; index++) {
@@ -95,9 +97,7 @@ export class FacilPage implements OnInit {
 
   darVueltaCard(index: number) {
     const carta = this.imagenes[index];
-    if (this.carta1 && this.carta2) {
-      Alert.error('No podes dar vuelta la carta ', 'tonto');
-    } else if (!this.carta1) {
+    if (!this.carta1) {
       carta.mostrar = true;
       this.carta1 = carta;
     } else if (!this.carta2) {
@@ -111,16 +111,21 @@ export class FacilPage implements OnInit {
 
   verificar() {
     if (this.carta1 && this.carta2 && this.carta1.path === this.carta2.path) {
-      console.log('coinciden');
+      Alert.bien('Bien!!!', '');
       this.contadorBuenas++;
       if (this.contadorBuenas === this.path.length) {
         this.detenerTimer = true;
-        console.log('Ganaste');
         //Pregunto si queres seguir jugando
-        this.reiniciarJuego();
+        Alert.exito('GANASTE!!!', '¿Desea seguir jugando?').then((res) => {
+          if (res.isConfirmed) {
+            this.reiniciarJuego();
+          } else {
+            this.router.navigateByUrl('/home');
+          }
+        });
       }
     } else if (this.carta1 && this.carta2) {
-      Alert.error('No coinciden', '');
+      Alert.mal('No coinciden', '');
       this.carta1.mostrar = false;
       this.carta2.mostrar = false;
     }
