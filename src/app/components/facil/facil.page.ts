@@ -74,6 +74,9 @@ export class FacilPage implements OnInit {
   juego = true;
   sonido = true;
   melody: HTMLAudioElement = new Audio('assets/sounds/game.mp3');
+  soundPause = new Audio('assets/sounds/play.mp3');
+  soundPlay = new Audio('assets/sounds/play.mp3');
+
   //Agregar musica de juego
   //Agregar animacion cuando doy vuelta una carta
 
@@ -175,8 +178,7 @@ export class FacilPage implements OnInit {
     this.juego = !this.juego;
 
     if (!this.juego) {
-      const sound = new Audio('assets/sounds/pause.mp3');
-      sound.play();
+      this.soundPause.play();
       //detengo el tiempo
       this.detenerTimer = true;
     } else {
@@ -187,16 +189,19 @@ export class FacilPage implements OnInit {
   seguirJuego() {
     this.detenerTimer = false;
     this.timer();
-    const sound = new Audio('assets/sounds/play.mp3');
-    sound.play();
+    this.soundPlay.play();
   }
 
   sonidoPlayPause(sonido: boolean) {
     this.sonido = sonido;
     if (sonido) {
       this.melody.volume = 1;
+      this.soundPause.volume = 1;
+      this.soundPlay.volume = 1;
     } else {
       this.melody.volume = 0;
+      this.soundPause.volume = 0;
+      this.soundPlay.volume = 0;
     }
     this.seguirJuego();
   }
