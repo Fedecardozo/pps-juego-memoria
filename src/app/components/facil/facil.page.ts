@@ -63,7 +63,7 @@ export class FacilPage implements OnInit {
 
   ngOnInit() {
     this.timer();
-    console.log(this.util.desordenarArray(this.imagenes));
+    this.util.desordenarArray(this.imagenes);
   }
   timer() {
     // Ejecuta la función cada 1 segundo (1000 milisegundos)
@@ -89,7 +89,7 @@ export class FacilPage implements OnInit {
     }, 1000);
   }
 
-  darVueltaCard() {
-    this.detenerTimer = true;
+  darVueltaCard(index: number) {
+    this.imagenes[index].mostrar = true;
   }
 }

@@ -9,21 +9,27 @@
     @for (item of this.path; track $index) {
 
     <ion-row>
-      <ion-col>
-        <ion-card
-          [color]="imagenes[$index+$index].color"
-          (click)="darVueltaCard()"
-        >
+      <ion-col (click)="darVueltaCard($index+$index)">
+        @if(imagenes[$index+$index].mostrar){
+        <ion-card [color]="imagenes[$index+$index].color">
           <img [src]="imagenes[$index+$index].path" alt="imagen" />
         </ion-card>
+        }@else {
+        <ion-card color="light">
+          <div class="carta-falsa" color="light"><span>?</span></div>
+        </ion-card>
+        }
       </ion-col>
-      <ion-col>
-        <ion-card
-          [color]="imagenes[$index+$index+1].color"
-          (click)="darVueltaCard()"
-        >
+      <ion-col (click)="darVueltaCard($index+$index+1)">
+        @if(imagenes[$index+$index+1].mostrar) {
+        <ion-card [color]="imagenes[$index+$index+1].color">
           <img [src]="imagenes[$index+$index+1].path" alt="imagen" />
         </ion-card>
+        } @else {
+        <ion-card color="light">
+          <div class="carta-falsa" color="light"><span>?</span></div>
+        </ion-card>
+        }
       </ion-col>
     </ion-row>
     }
