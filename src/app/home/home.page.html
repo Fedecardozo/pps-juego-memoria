@@ -1,9 +1,13 @@
 <main>
   <div class="encabezado">
-    <button class="button-65 bg-btn-azul" role="button">
+    <button class="button-65 bg-btn-azul" role="button" routerLink="/ranking">
       Listado <i class="fa-solid fa-ranking-star fa-lg"></i>
     </button>
-    <button class="button-65 bg-btn-rojo" role="button">
+    <button
+      class="button-65 bg-btn-rojo"
+      role="button"
+      (click)="cerrarSesion()"
+    >
       Cerrar sesión <i class="fa-solid fa-arrow-right-from-bracket fa-lg"></i>
     </button>
   </div>

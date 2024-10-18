@@ -48,4 +48,8 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./components/juego/juego.page').then((m) => m.JuegoPage),
   },
+  {
+    path: 'ranking',
+    loadComponent: () => import('./pages/ranking/ranking.page').then( m => m.RankingPage)
+  },
 ];

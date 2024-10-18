@@ -135,7 +135,7 @@ export class JuegoPage implements OnInit {
     this.fire.agregarResultado(
       new Resultado(
         this.user.correo || '',
-        this.tiempo,
+        this.segundos.toString(),
         this.title.toLowerCase(),
         new Date().toLocaleDateString()
       )
@@ -175,8 +175,9 @@ export class JuegoPage implements OnInit {
       item.mostrar = false;
     });
     this.contadorBuenas = 0;
-    this.segundos = 0;
+    this.segundos = -1;
     this.detenerTimer = false;
+    this.timer();
   }
 
   pausar() {

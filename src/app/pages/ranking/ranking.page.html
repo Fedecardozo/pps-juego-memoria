@@ -1,0 +1,41 @@
+@if(!this.spinner) {
+<main>
+  <div class="encabezado">
+    <button class="button-65 bg-btn-azul" role="button" routerLink="/home">
+      Inicio <i class="fa-solid fa-house fa-lg"></i>
+    </button>
+    <button
+      class="button-65 bg-btn-rojo"
+      role="button"
+      (click)="cerrarSesion()"
+    >
+      Cerrar sesión <i class="fa-solid fa-arrow-right-from-bracket fa-lg"></i>
+    </button>
+  </div>
+
+  <header class="title mt-2"><span>Mejores 5 resultados</span></header>
+
+  <ul class="responsive-table mt-2">
+    <li class="table-header">
+      <div class="col col-1">Usuario</div>
+      <div class="col col-2">Segundos</div>
+      <div class="col col-3">Fecha</div>
+    </li>
+    @for (item of this.mejoresCinco; track $index) {
+
+    <li class="table-row">
+      <div class="col col-1">{{item.user}}</div>
+      <div class="col col-2">{{item.tiempo}}</div>
+      <div class="col col-3">{{item.fecha}}</div>
+    </li>
+    }
+  </ul>
+</main>
+} @else {
+<div class="div-spinner">
+  <h2>Cargando listado...</h2>
+  <div id="div">
+    <ion-spinner name="lines" color="primary"></ion-spinner>
+  </div>
+</div>
+}
