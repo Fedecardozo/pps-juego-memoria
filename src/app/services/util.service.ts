@@ -12,6 +12,7 @@ export class UtilService {
   private vuelta = new Audio('assets/sounds/vuelta.mp3');
   private start = new Audio('assets/sounds/start.mp3');
   sonido: boolean = true;
+  back: boolean = true;
 
   constructor() {}
 

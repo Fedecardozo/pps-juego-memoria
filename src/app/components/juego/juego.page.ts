@@ -26,8 +26,7 @@ import { Router } from '@angular/router';
 import { DbService } from 'src/app/services/db.service';
 import { Resultado } from 'src/app/models/resultado';
 import { UserService } from 'src/app/services/user.service';
-import { Subscription } from 'rxjs';
-import { Platform } from '@ionic/angular';
+
 @Component({
   selector: 'app-juego',
   templateUrl: './juego.page.html',
@@ -70,9 +69,9 @@ export class JuegoPage implements OnInit {
   contadorBuenas: number = 0;
   router: Router = inject(Router);
   juego = true;
-  backButtonSubscription?: Subscription;
 
-  constructor(private platform: Platform) {
+  constructor() {
+    this.util.back = false;
     this.util.playStart();
     setTimeout(() => {
       this.util.playMelodia();
@@ -88,28 +87,6 @@ export class JuegoPage implements OnInit {
     }
     this.timer();
     this.util.desordenarArray(this.imagenes);
-  }
-
-  ionViewDidEnter() {
-    // Suscribirse al botón de retroceso del hardware
-    this.backButtonSubscription =
-      this.platform.backButton.subscribeWithPriority(10, () => {
-        console.log('Botón de retroceso detectado!');
-        this.salir();
-      });
-  }
-  ionViewWillLeave() {
-    // Cancelar la suscripción cuando dejas la vista para evitar fugas de memoria
-    if (this.backButtonSubscription) {
-      this.backButtonSubscription.unsubscribe();
-    }
-  }
-
-  ngOnDestroy() {
-    // Asegurarse de cancelar la suscripción al salir del componente
-    if (this.backButtonSubscription) {
-      this.backButtonSubscription.unsubscribe();
-    }
   }
 
   timer() {
@@ -219,13 +196,16 @@ export class JuegoPage implements OnInit {
     this.util.actDescSound(sonido);
     this.seguirJuego();
   }
+  ngOnDestroy(): void {
+    console.log('destroy');
+  }
 
   salir() {
     Alert.warning('¿Desea salir?', '').then((res) => {
       if (res.isConfirmed) {
         this.util.pausarMelodia();
         this.router.navigateByUrl('/home');
-        this.ngOnDestroy();
+        this.util.back = true;
       } else this.seguirJuego();
     });
   }

@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guard';
 import { authDeactivateGuard } from './guards/auth-deactivate.guard';
+import { backGuard } from './guards/back.guard';
 
 export const routes: Routes = [
   {
@@ -26,18 +27,25 @@ export const routes: Routes = [
   },
   {
     path: 'facil',
-    loadComponent: () => import('./components/facil/facil.page').then( m => m.FacilPage)
+    loadComponent: () =>
+      import('./components/facil/facil.page').then((m) => m.FacilPage),
+    canDeactivate: [backGuard],
   },
   {
     path: 'medio',
-    loadComponent: () => import('./components/medio/medio.page').then( m => m.MedioPage)
+    loadComponent: () =>
+      import('./components/medio/medio.page').then((m) => m.MedioPage),
+    canDeactivate: [backGuard],
   },
   {
     path: 'dificil',
-    loadComponent: () => import('./components/dificil/dificil.page').then( m => m.DificilPage)
+    loadComponent: () =>
+      import('./components/dificil/dificil.page').then((m) => m.DificilPage),
+    canDeactivate: [backGuard],
   },
   {
     path: 'juego',
-    loadComponent: () => import('./components/juego/juego.page').then( m => m.JuegoPage)
+    loadComponent: () =>
+      import('./components/juego/juego.page').then((m) => m.JuegoPage),
   },
 ];
