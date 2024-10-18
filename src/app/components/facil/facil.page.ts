@@ -50,6 +50,7 @@ export class FacilPage implements OnInit {
   colores: string[] = ['primary', 'tertiary', 'success'];
   imagenes: Imagen[] = [];
   detenerTimer: boolean = false;
+  tiempo: string = '00:00';
 
   constructor() {
     for (let index = 0; index < this.path.length; index++) {
@@ -61,10 +62,31 @@ export class FacilPage implements OnInit {
   }
 
   ngOnInit() {
-    this.util.timer(() => {
-      return this.detenerTimer;
-    });
+    this.timer();
     console.log(this.util.desordenarArray(this.imagenes));
+  }
+  timer() {
+    // Ejecuta la función cada 1 segundo (1000 milisegundos)
+    let segundos = 0;
+    const timer = setInterval(() => {
+      segundos++;
+
+      // Calcular minutos y segundos
+      const minutos = Math.floor(segundos / 60);
+      const segs = segundos % 60;
+
+      // Formatear con ceros a la izquierda si es necesario
+      const minutosFormateados = minutos < 10 ? '0' + minutos : minutos;
+      const segsFormateados = segs < 10 ? '0' + segs : segs;
+
+      // Actualizar el contenido del elemento con el tiempo formateado
+      this.tiempo = `${minutosFormateados}:${segsFormateados}`;
+
+      // Detiene el timer después de 10 segundos
+      if (this.detenerTimer) {
+        clearInterval(timer); // Detener el interval
+      }
+    }, 1000);
   }
 
   darVueltaCard() {
