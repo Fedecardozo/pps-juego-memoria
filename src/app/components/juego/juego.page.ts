@@ -54,15 +54,12 @@ import { UserService } from 'src/app/services/user.service';
   ],
 })
 export class JuegoPage implements OnInit {
+  @Input() title: string = '';
   util: UtilService = inject(UtilService);
   fire: DbService = inject(DbService);
   user: UserService = inject(UserService);
-  @Input() path: string[] = [
-    'assets/octopus.png',
-    'assets/lion.png',
-    'assets/monkey.png',
-  ];
-  @Input() colores: string[] = ['primary', 'tertiary', 'success'];
+  @Input() path: string[] = [];
+  @Input() colores: string[] = [];
   imagenes: Imagen[] = [];
   detenerTimer: boolean = false;
   carta1: Imagen | null = null;
@@ -79,16 +76,17 @@ export class JuegoPage implements OnInit {
 
   //Agregar animacion cuando doy vuelta una carta
 
-  constructor() {
+  constructor() {}
+
+  ngOnInit() {
+    console.log(this.path);
+    console.log(this.colores);
     for (let index = 0; index < this.path.length; index++) {
       const element = new Imagen(this.colores[index], this.path[index]);
       const element2 = new Imagen(this.colores[index], this.path[index]);
       this.imagenes.push(element);
       this.imagenes.push(element2);
     }
-  }
-
-  ngOnInit() {
     this.melody.play();
     this.timer();
     this.util.desordenarArray(this.imagenes);
@@ -136,7 +134,11 @@ export class JuegoPage implements OnInit {
 
   guardarDb() {
     this.fire.agregarResultado(
-      new Resultado(this.user.correo || '', this.tiempo, 'facil')
+      new Resultado(
+        this.user.correo || '',
+        this.tiempo,
+        this.title.toLowerCase()
+      )
     );
   }
 

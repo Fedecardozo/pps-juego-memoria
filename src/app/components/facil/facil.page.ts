@@ -28,6 +28,12 @@ import { JuegoPage } from '../juego/juego.page';
   standalone: true,
 })
 export class FacilPage implements OnInit {
+  path: string[] = [
+    'assets/octopus.png',
+    'assets/lion.png',
+    'assets/monkey.png',
+  ];
+  colores: string[] = ['primary', 'tertiary', 'success'];
   constructor() {}
 
   ngOnInit() {}

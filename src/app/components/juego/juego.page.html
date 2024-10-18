@@ -1,3 +1,4 @@
+@if(this.imagenes.length>0) {
 <ion-fab vertical="top" horizontal="end">
   <ion-fab-button color="tertiary" (click)="pausar()">
     <i class="fa-solid fa-pause fa-lg"></i>
@@ -22,7 +23,7 @@
   <ion-grid>
     <ion-row class="mb-3">
       <ion-col>
-        <header class="title"><span> FACIL</span></header>
+        <header class="title"><span> {{title}}</span></header>
       </ion-col>
     </ion-row>
 
@@ -32,22 +33,30 @@
       <ion-col (click)="darVueltaCard($index+$index)">
         @if(imagenes[$index+$index].mostrar){
         <ion-card [color]="imagenes[$index+$index].color">
-          <img [src]="imagenes[$index+$index].path" alt="imagen" />
+          <img
+            [src]="imagenes[$index+$index].path"
+            alt="imagen"
+            [class]="title"
+          />
         </ion-card>
         }@else {
         <ion-card color="light">
-          <div class="carta-falsa" color="light"><span>?</span></div>
+          <div [class]="'carta-falsa '+title" color="light"><span>?</span></div>
         </ion-card>
         }
       </ion-col>
       <ion-col (click)="darVueltaCard($index+$index+1)">
         @if(imagenes[$index+$index+1].mostrar) {
         <ion-card [color]="imagenes[$index+$index+1].color">
-          <img [src]="imagenes[$index+$index+1].path" alt="imagen" />
+          <img
+            [src]="imagenes[$index+$index+1].path"
+            alt="imagen"
+            [class]="title"
+          />
         </ion-card>
         } @else {
         <ion-card color="light">
-          <div class="carta-falsa" color="light"><span>?</span></div>
+          <div [class]="'carta-falsa '+title" color="light"><span>?</span></div>
         </ion-card>
         }
       </ion-col>
@@ -61,3 +70,5 @@
     </ion-row>
   </ion-grid>
 </main>
+
+}
