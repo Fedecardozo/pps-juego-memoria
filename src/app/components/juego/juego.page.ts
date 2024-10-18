@@ -1,5 +1,9 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  CommonModule,
+  DATE_PIPE_DEFAULT_TIMEZONE,
+  formatDate,
+} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonContent,
@@ -132,7 +136,8 @@ export class JuegoPage implements OnInit {
       new Resultado(
         this.user.correo || '',
         this.tiempo,
-        this.title.toLowerCase()
+        this.title.toLowerCase(),
+        new Date().toLocaleDateString()
       )
     );
   }
