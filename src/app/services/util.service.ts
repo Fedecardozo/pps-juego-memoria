@@ -36,12 +36,10 @@ export class UtilService {
   }
   pausar() {
     this.soundPause.play();
-    this.melody.pause();
   }
 
   renaudar() {
     this.soundPlay.play();
-    this.melody.play();
   }
 
   darVuelta() {
