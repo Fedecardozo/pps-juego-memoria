@@ -1,0 +1,31 @@
+<main class="main">
+  <ion-grid>
+    <ion-row class="mb-3">
+      <ion-col>
+        <header class="title"><span> FACIL</span></header>
+      </ion-col>
+    </ion-row>
+
+    @for (item of this.path; track $index) {
+
+    <ion-row>
+      <ion-col>
+        <ion-card [color]="imagenes[$index+$index].color">
+          <img [src]="imagenes[$index+$index].path" alt="imagen" />
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card [color]="imagenes[$index+$index+1].color">
+          <img [src]="imagenes[$index+$index+1].path" alt="imagen" />
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    }
+
+    <ion-row class="mt-2">
+      <ion-col>
+        <div class="subtitulo"><span>Tiempo: 00:00 </span></div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</main>
