@@ -73,12 +73,8 @@ export class FacilPage implements OnInit {
   router: Router = inject(Router);
   juego = true;
   sonido = true;
+  melody: HTMLAudioElement = new Audio('assets/sounds/game.mp3');
   //Agregar musica de juego
-  //Boton de pausa
-  //seguir jugando
-  //sacar sonido
-  //salir
-  //preguntar si de verdad desea cerrar sesion
   //Agregar animacion cuando doy vuelta una carta
 
   constructor() {
@@ -91,6 +87,7 @@ export class FacilPage implements OnInit {
   }
 
   ngOnInit() {
+    this.melody.play();
     this.timer();
     this.util.desordenarArray(this.imagenes);
   }
@@ -109,6 +106,10 @@ export class FacilPage implements OnInit {
 
       // Actualizar el contenido del elemento con el tiempo formateado
       this.tiempo = `${minutosFormateados}:${segsFormateados}`;
+
+      if (this.melody.paused) {
+        this.melody.play();
+      }
 
       // Detiene el timer después de 10 segundos
       if (this.detenerTimer) {
@@ -174,6 +175,8 @@ export class FacilPage implements OnInit {
     this.juego = !this.juego;
 
     if (!this.juego) {
+      const sound = new Audio('assets/sounds/pause.mp3');
+      sound.play();
       //detengo el tiempo
       this.detenerTimer = true;
     } else {
@@ -184,10 +187,17 @@ export class FacilPage implements OnInit {
   seguirJuego() {
     this.detenerTimer = false;
     this.timer();
+    const sound = new Audio('assets/sounds/play.mp3');
+    sound.play();
   }
 
   sonidoPlayPause(sonido: boolean) {
     this.sonido = sonido;
+    if (sonido) {
+      this.melody.volume = 1;
+    } else {
+      this.melody.volume = 0;
+    }
     this.seguirJuego();
   }
 
