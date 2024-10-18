@@ -14,6 +14,8 @@ import {
   IonGrid,
   IonRow,
   IonCol,
+  IonFab,
+  IonFabButton,
 } from '@ionic/angular/standalone';
 import { UtilService } from 'src/app/services/util.service';
 import { Imagen } from 'src/app/models/imagen';
@@ -29,6 +31,8 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./facil.page.scss'],
   standalone: true,
   imports: [
+    IonFabButton,
+    IonFab,
     IonCol,
     IonRow,
     IonGrid,
@@ -63,10 +67,10 @@ export class FacilPage implements OnInit {
   segundos: number = 0;
   contadorBuenas: number = 0;
   router: Router = inject(Router);
-  //guardar en la base de datos
   //Agregar musica de juego
   //Boton de pausa
   //seguir jugando
+  //sacar sonido
   //salir
   //preguntar si de verdad desea cerrar sesion
   //Agregar animacion cuando doy vuelta una carta
@@ -157,6 +161,14 @@ export class FacilPage implements OnInit {
     });
     this.contadorBuenas = 0;
     this.segundos = 0;
+    this.detenerTimer = false;
+  }
+
+  pausar() {
+    this.detenerTimer = true;
+  }
+
+  seguir() {
     this.detenerTimer = false;
   }
 }

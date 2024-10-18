@@ -10,6 +10,7 @@ import {
 } from '@ionic/angular/standalone';
 import { UserService } from './services/user.service';
 import { SplashScreen } from '@capacitor/splash-screen';
+import { Alert } from './models/alert';
 
 @Component({
   selector: 'app-root',
@@ -32,7 +33,11 @@ export class AppComponent {
   }
 
   async cerrarSesion() {
-    await this.auth.cerrarSesion();
-    this.router.navigateByUrl('/login');
+    Alert.warning('¿Desea cerrar sesión?', '').then(async (res) => {
+      if (res.isConfirmed) {
+        await this.auth.cerrarSesion();
+        this.router.navigateByUrl('/login');
+      }
+    });
   }
 }

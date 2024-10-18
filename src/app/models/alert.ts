@@ -44,4 +44,52 @@ export class Alert {
       },
     });
   }
+
+  static warning(titulo: string, texto: string) {
+    return Swal.fire({
+      icon: 'question',
+      title: titulo,
+      text: texto,
+      heightAuto: false,
+      backdrop: true, // Esta opción asegura que el fondo sea oscuro
+      allowOutsideClick: false, // Impide cerrar al hacer clic fuera del modal
+      confirmButtonText: 'Si',
+      showCancelButton: true,
+      cancelButtonText: 'No',
+      background: '#310a6b',
+      color: '#f5f2ff',
+      customClass: {
+        cancelButton: 'btn-cancel',
+        title: 'sin-padding',
+      },
+    });
+  }
+
+  // static pausa(){
+  //   return Swal.fire({
+  //     title: 'Menú de Opciones',
+  //     text: 'Seleccione una opción:',
+  //     buttons: {
+  //       cancel: {
+  //         text: 'Cancelar',
+  //         value: null,
+  //         visible: true,
+  //         className: '',
+  //         closeModal: true,
+  //       },
+  //       confirm: {
+  //         text: 'Opción 1',
+  //         value: 'opcion1',
+  //       },
+  //       deny: {
+  //         text: 'Opción 2',
+  //         value: 'opcion2',
+  //       },
+  //       custom: {
+  //         text: 'Opción 3',
+  //         value: 'opcion3',
+  //       },
+  //     },
+  //   });
+  // }
 }
