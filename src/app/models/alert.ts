@@ -29,7 +29,7 @@ export class Alert {
       imageUrl: 'assets/win.gif',
       imageHeight: 150,
       title: titulo,
-      text: texto,
+      html: texto,
       heightAuto: false,
       backdrop: true, // Esta opción asegura que el fondo sea oscuro
       allowOutsideClick: false, // Impide cerrar al hacer clic fuera del modal

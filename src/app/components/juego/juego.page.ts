@@ -26,7 +26,8 @@ import { Router } from '@angular/router';
 import { DbService } from 'src/app/services/db.service';
 import { Resultado } from 'src/app/models/resultado';
 import { UserService } from 'src/app/services/user.service';
-
+import { Subscription } from 'rxjs';
+import { Platform } from '@ionic/angular';
 @Component({
   selector: 'app-juego',
   templateUrl: './juego.page.html',
@@ -69,28 +70,48 @@ export class JuegoPage implements OnInit {
   contadorBuenas: number = 0;
   router: Router = inject(Router);
   juego = true;
-  sonido = true;
-  melody: HTMLAudioElement = new Audio('assets/sounds/game.mp3');
-  soundPause = new Audio('assets/sounds/play.mp3');
-  soundPlay = new Audio('assets/sounds/play.mp3');
+  backButtonSubscription?: Subscription;
 
-  //Agregar animacion cuando doy vuelta una carta
-
-  constructor() {}
+  constructor(private platform: Platform) {
+    this.util.playStart();
+    setTimeout(() => {
+      this.util.playMelodia();
+    }, 2500);
+  }
 
   ngOnInit() {
-    console.log(this.path);
-    console.log(this.colores);
     for (let index = 0; index < this.path.length; index++) {
       const element = new Imagen(this.colores[index], this.path[index]);
       const element2 = new Imagen(this.colores[index], this.path[index]);
       this.imagenes.push(element);
       this.imagenes.push(element2);
     }
-    this.melody.play();
     this.timer();
     this.util.desordenarArray(this.imagenes);
   }
+
+  ionViewDidEnter() {
+    // Suscribirse al botón de retroceso del hardware
+    this.backButtonSubscription =
+      this.platform.backButton.subscribeWithPriority(10, () => {
+        console.log('Botón de retroceso detectado!');
+        this.salir();
+      });
+  }
+  ionViewWillLeave() {
+    // Cancelar la suscripción cuando dejas la vista para evitar fugas de memoria
+    if (this.backButtonSubscription) {
+      this.backButtonSubscription.unsubscribe();
+    }
+  }
+
+  ngOnDestroy() {
+    // Asegurarse de cancelar la suscripción al salir del componente
+    if (this.backButtonSubscription) {
+      this.backButtonSubscription.unsubscribe();
+    }
+  }
+
   timer() {
     // Ejecuta la función cada 1 segundo (1000 milisegundos)
     const timer = setInterval(() => {
@@ -107,10 +128,6 @@ export class JuegoPage implements OnInit {
       // Actualizar el contenido del elemento con el tiempo formateado
       this.tiempo = `${minutosFormateados}:${segsFormateados}`;
 
-      if (this.melody.paused) {
-        this.melody.play();
-      }
-
       // Detiene el timer después de 10 segundos
       if (this.detenerTimer) {
         clearInterval(timer); // Detener el interval
@@ -119,6 +136,7 @@ export class JuegoPage implements OnInit {
   }
 
   darVueltaCard(index: number) {
+    this.util.darVuelta();
     const carta = this.imagenes[index];
     if (!this.carta1) {
       carta.mostrar = true;
@@ -148,12 +166,16 @@ export class JuegoPage implements OnInit {
       if (this.contadorBuenas === this.path.length) {
         this.detenerTimer = true;
         this.guardarDb();
+        this.util.playGanar();
         //Pregunto si queres seguir jugando
-        Alert.exito('GANASTE!!!', '¿Desea seguir jugando?').then((res) => {
+        Alert.exito(
+          'GANASTE!!!',
+          `tiempo: ${this.tiempo}<br> ¿Desea seguir jugando?`
+        ).then((res) => {
           if (res.isConfirmed) {
             this.reiniciarJuego();
           } else {
-            this.router.navigateByUrl('/home');
+            this.salir();
           }
         });
       }
@@ -179,7 +201,7 @@ export class JuegoPage implements OnInit {
     this.juego = !this.juego;
 
     if (!this.juego) {
-      this.soundPause.play();
+      this.util.pausar();
       //detengo el tiempo
       this.detenerTimer = true;
     } else {
@@ -190,27 +212,20 @@ export class JuegoPage implements OnInit {
   seguirJuego() {
     this.detenerTimer = false;
     this.timer();
-    this.soundPlay.play();
+    this.util.renaudar();
   }
 
   sonidoPlayPause(sonido: boolean) {
-    this.sonido = sonido;
-    if (sonido) {
-      this.melody.volume = 1;
-      this.soundPause.volume = 1;
-      this.soundPlay.volume = 1;
-    } else {
-      this.melody.volume = 0;
-      this.soundPause.volume = 0;
-      this.soundPlay.volume = 0;
-    }
+    this.util.actDescSound(sonido);
     this.seguirJuego();
   }
 
   salir() {
     Alert.warning('¿Desea salir?', '').then((res) => {
       if (res.isConfirmed) {
+        this.util.pausarMelodia();
         this.router.navigateByUrl('/home');
+        this.ngOnDestroy();
       } else this.seguirJuego();
     });
   }
