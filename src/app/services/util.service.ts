@@ -14,4 +14,19 @@ export class UtilService {
     }
     return array;
   }
+
+  timer(callback: Function) {
+    // Ejecuta la función cada 1 segundo (1000 milisegundos)
+    let contador = 0;
+    const timer = setInterval(function () {
+      contador++;
+      console.log('Segundos: ' + contador);
+
+      // Detiene el timer después de 10 segundos
+      if (callback()) {
+        console.log('se detuvo el tiempo');
+        clearInterval(timer); // Detener el interval
+      }
+    }, 1000);
+  }
 }

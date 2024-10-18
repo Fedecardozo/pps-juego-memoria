@@ -49,6 +49,7 @@ export class FacilPage implements OnInit {
   ];
   colores: string[] = ['primary', 'tertiary', 'success'];
   imagenes: Imagen[] = [];
+  detenerTimer: boolean = false;
 
   constructor() {
     for (let index = 0; index < this.path.length; index++) {
@@ -60,6 +61,13 @@ export class FacilPage implements OnInit {
   }
 
   ngOnInit() {
+    this.util.timer(() => {
+      return this.detenerTimer;
+    });
     console.log(this.util.desordenarArray(this.imagenes));
+  }
+
+  darVueltaCard() {
+    this.detenerTimer = true;
   }
 }

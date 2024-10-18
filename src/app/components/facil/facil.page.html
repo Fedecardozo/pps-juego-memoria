@@ -10,12 +10,18 @@
 
     <ion-row>
       <ion-col>
-        <ion-card [color]="imagenes[$index+$index].color">
+        <ion-card
+          [color]="imagenes[$index+$index].color"
+          (click)="darVueltaCard()"
+        >
           <img [src]="imagenes[$index+$index].path" alt="imagen" />
         </ion-card>
       </ion-col>
       <ion-col>
-        <ion-card [color]="imagenes[$index+$index+1].color">
+        <ion-card
+          [color]="imagenes[$index+$index+1].color"
+          (click)="darVueltaCard()"
+        >
           <img [src]="imagenes[$index+$index+1].path" alt="imagen" />
         </ion-card>
       </ion-col>
