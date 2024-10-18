@@ -16,6 +16,8 @@ import {
   IonCol,
   IonFab,
   IonFabButton,
+  IonFabList,
+  IonIcon,
 } from '@ionic/angular/standalone';
 import { UtilService } from 'src/app/services/util.service';
 import { Imagen } from 'src/app/models/imagen';
@@ -31,6 +33,8 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./facil.page.scss'],
   standalone: true,
   imports: [
+    IonIcon,
+    IonFabList,
     IonFabButton,
     IonFab,
     IonCol,
@@ -67,6 +71,8 @@ export class FacilPage implements OnInit {
   segundos: number = 0;
   contadorBuenas: number = 0;
   router: Router = inject(Router);
+  juego = true;
+  sonido = true;
   //Agregar musica de juego
   //Boton de pausa
   //seguir jugando
@@ -165,10 +171,31 @@ export class FacilPage implements OnInit {
   }
 
   pausar() {
-    this.detenerTimer = true;
+    this.juego = !this.juego;
+
+    if (!this.juego) {
+      //detengo el tiempo
+      this.detenerTimer = true;
+    } else {
+      this.seguirJuego();
+    }
   }
 
-  seguir() {
+  seguirJuego() {
     this.detenerTimer = false;
+    this.timer();
+  }
+
+  sonidoPlayPause(sonido: boolean) {
+    this.sonido = sonido;
+    this.seguirJuego();
+  }
+
+  salir() {
+    Alert.warning('¿Desea salir?', '').then((res) => {
+      if (res.isConfirmed) {
+        this.router.navigateByUrl('/home');
+      } else this.seguirJuego();
+    });
   }
 }

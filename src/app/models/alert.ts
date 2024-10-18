@@ -64,32 +64,4 @@ export class Alert {
       },
     });
   }
-
-  // static pausa(){
-  //   return Swal.fire({
-  //     title: 'Menú de Opciones',
-  //     text: 'Seleccione una opción:',
-  //     buttons: {
-  //       cancel: {
-  //         text: 'Cancelar',
-  //         value: null,
-  //         visible: true,
-  //         className: '',
-  //         closeModal: true,
-  //       },
-  //       confirm: {
-  //         text: 'Opción 1',
-  //         value: 'opcion1',
-  //       },
-  //       deny: {
-  //         text: 'Opción 2',
-  //         value: 'opcion2',
-  //       },
-  //       custom: {
-  //         text: 'Opción 3',
-  //         value: 'opcion3',
-  //       },
-  //     },
-  //   });
-  // }
 }
