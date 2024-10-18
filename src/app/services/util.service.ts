@@ -5,54 +5,9 @@ import { Imagen } from '../models/imagen';
   providedIn: 'root',
 })
 export class UtilService {
-  private melody = new Audio('assets/sounds/game.mp3');
-  private soundPause = new Audio('assets/sounds/pause.mp3');
-  private soundPlay = new Audio('assets/sounds/play.mp3');
-  private ganar = new Audio('assets/sounds/ganar.mp3');
-  private vuelta = new Audio('assets/sounds/vuelta.mp3');
-  private start = new Audio('assets/sounds/start.mp3');
-  sonido: boolean = true;
   back: boolean = true;
 
   constructor() {}
-
-  actDescSound(act: boolean) {
-    this.sonido = act;
-    this.melody.volume = act ? 1 : 0;
-    this.soundPause.volume = act ? 1 : 0;
-    this.soundPlay.volume = act ? 1 : 0;
-    this.ganar.volume = act ? 1 : 0;
-    this.vuelta.volume = act ? 1 : 0;
-    this.start.volume = act ? 1 : 0;
-  }
-
-  pausarMelodia() {
-    this.melody.pause();
-  }
-
-  playMelodia() {
-    this.melody.loop = true; // Reproduce en bucle
-    this.melody.play();
-  }
-  pausar() {
-    this.soundPause.play();
-  }
-
-  renaudar() {
-    this.soundPlay.play();
-  }
-
-  darVuelta() {
-    this.vuelta.play();
-  }
-
-  playGanar() {
-    this.ganar.play();
-  }
-
-  playStart() {
-    this.start.play();
-  }
 
   desordenarArray(array: Imagen[]) {
     for (let i = array.length - 1; i > 0; i--) {

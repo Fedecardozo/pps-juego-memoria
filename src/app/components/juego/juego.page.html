@@ -1,22 +1,8 @@
 @if(this.imagenes.length>0) {
-<ion-fab vertical="top" horizontal="end">
-  <ion-fab-button color="tertiary" (click)="pausar()">
-    <i class="fa-solid fa-pause fa-lg"></i>
+<ion-fab vertical="top" horizontal="start">
+  <ion-fab-button color="danger" (click)="salir()">
+    <i class="fa-solid fa-arrow-left fa-lg"></i>
   </ion-fab-button>
-  <ion-fab-list side="bottom">
-    @if(this.util.sonido) {
-    <ion-fab-button color="primary" (click)="sonidoPlayPause(false)">
-      <i class="fa-solid fa-volume-xmark fa-lg"></i>
-    </ion-fab-button>
-    } @else {
-    <ion-fab-button color="primary" (click)="sonidoPlayPause(true)">
-      <i class="fa-solid fa-volume-high fa-lg"></i>
-    </ion-fab-button>
-    }
-    <ion-fab-button color="danger" (click)="salir()">
-      <i class="fa-solid fa-arrow-left fa-lg"></i>
-    </ion-fab-button>
-  </ion-fab-list>
 </ion-fab>
 
 <main class="main">

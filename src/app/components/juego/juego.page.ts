@@ -76,10 +76,6 @@ export class JuegoPage implements OnInit {
 
   constructor() {
     this.util.back = false;
-    this.util.playStart();
-    setTimeout(() => {
-      this.util.playMelodia();
-    }, 2500);
   }
 
   ngOnInit() {
@@ -117,7 +113,6 @@ export class JuegoPage implements OnInit {
   }
 
   darVueltaCard(index: number) {
-    this.util.darVuelta();
     const carta = this.imagenes[index];
     if (!this.carta1) {
       carta.mostrar = true;
@@ -148,7 +143,6 @@ export class JuegoPage implements OnInit {
       if (this.contadorBuenas === this.path.length) {
         this.detenerTimer = true;
         this.guardarDb();
-        this.util.playGanar();
         //Pregunto si queres seguir jugando
         Alert.exito(
           'GANASTE!!!',
@@ -184,7 +178,6 @@ export class JuegoPage implements OnInit {
     this.juego = !this.juego;
 
     if (!this.juego) {
-      this.util.pausar();
       //detengo el tiempo
       this.detenerTimer = true;
     } else {
@@ -195,11 +188,9 @@ export class JuegoPage implements OnInit {
   seguirJuego() {
     this.detenerTimer = false;
     this.timer();
-    this.util.renaudar();
   }
 
   sonidoPlayPause(sonido: boolean) {
-    this.util.actDescSound(sonido);
     this.seguirJuego();
   }
   ngOnDestroy(): void {
@@ -209,7 +200,6 @@ export class JuegoPage implements OnInit {
   salir() {
     Alert.warning('¿Desea salir?', '').then((res) => {
       if (res.isConfirmed) {
-        this.util.pausarMelodia();
         this.router.navigateByUrl('/home');
         this.util.back = true;
       } else this.seguirJuego();
