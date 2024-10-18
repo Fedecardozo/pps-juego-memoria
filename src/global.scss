@@ -221,3 +221,12 @@ ion-card {
 .text-center {
   text-align: center;
 }
+
+.sin-padding {
+  padding-top: 0 !important; /* Eliminar padding */
+  margin: 0; /* Opcional: eliminar margen si es necesario */
+}
+
+.btn-cancel {
+  background-color: rgb(137, 11, 11);
+}

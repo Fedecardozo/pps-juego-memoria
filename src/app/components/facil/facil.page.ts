@@ -111,7 +111,6 @@ export class FacilPage implements OnInit {
 
   verificar() {
     if (this.carta1 && this.carta2 && this.carta1.path === this.carta2.path) {
-      Alert.bien('Bien!!!', '');
       this.contadorBuenas++;
       if (this.contadorBuenas === this.path.length) {
         this.detenerTimer = true;
@@ -125,7 +124,6 @@ export class FacilPage implements OnInit {
         });
       }
     } else if (this.carta1 && this.carta2) {
-      Alert.mal('No coinciden', '');
       this.carta1.mostrar = false;
       this.carta2.mostrar = false;
     }
