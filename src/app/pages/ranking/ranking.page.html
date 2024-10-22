@@ -1,35 +1,47 @@
 @if(!this.spinner) {
 <main>
-  <div class="encabezado">
-    <button class="button-65 bg-btn-azul" role="button" routerLink="/home">
+  <!-- <div class="encabezado">
+    <button class="button-65 bg-btn-azul" tab="home">
       Inicio <i class="fa-solid fa-house fa-lg"></i>
     </button>
-    <button
-      class="button-65 bg-btn-rojo"
-      role="button"
-      (click)="cerrarSesion()"
-    >
+    <button class="button-65 bg-btn-rojo" (click)="cerrarSesion()">
       Cerrar sesión <i class="fa-solid fa-arrow-right-from-bracket fa-lg"></i>
     </button>
-  </div>
+  </div> -->
 
-  <header class="title mt-2"><span>Mejores 5 resultados</span></header>
+  @switch(this.nivel){ @case(0) {
+  <app-list-facil [mejoresCinco]="this.mejoresCinco"></app-list-facil>
 
-  <ul class="responsive-table mt-2">
-    <li class="table-header">
-      <div class="col col-1">Usuario</div>
-      <div class="col col-2">Segundos</div>
-      <div class="col col-3">Fecha</div>
-    </li>
-    @for (item of this.mejoresCinco; track $index) {
+  } @case(1) {
+  <app-list-medio [mejoresCinco]="this.mejoresCincoMedio"></app-list-medio>
 
-    <li class="table-row">
-      <div class="col col-1">{{item.user}}</div>
-      <div class="col col-2">{{item.tiempo}}</div>
-      <div class="col col-3">{{item.fecha}}</div>
-    </li>
-    }
-  </ul>
+  } @case(2) {
+  <app-list-dificil [mejoresCinco]="this.mejoresCincoDificl"></app-list-dificil>
+
+  } }
+
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button (click)="cambiarNivel(0)">
+        <br />
+        <i class="fa-solid fa-dog fa-xl"></i>
+        <br />
+        FÁCIL
+      </ion-tab-button>
+      <ion-tab-button (click)="cambiarNivel(1)">
+        <br />
+        <i class="fa-solid fa-lemon fa-xl"></i>
+        <br />
+        MEDIO
+      </ion-tab-button>
+      <ion-tab-button (click)="cambiarNivel(2)">
+        <br />
+        <i class="fa-solid fa-screwdriver-wrench fa-xl"></i>
+        <br />
+        DIFÍCIL
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
 </main>
 } @else {
 <div class="div-spinner">

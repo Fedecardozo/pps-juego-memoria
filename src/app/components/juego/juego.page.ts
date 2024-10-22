@@ -59,6 +59,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class JuegoPage implements OnInit {
   @Input() title: string = '';
+  @Input() nivel: string = '';
   util: UtilService = inject(UtilService);
   fire: DbService = inject(DbService);
   user: UserService = inject(UserService);
@@ -131,7 +132,7 @@ export class JuegoPage implements OnInit {
       new Resultado(
         this.user.correo || '',
         this.segundos.toString(),
-        this.title.toLowerCase(),
+        this.nivel.toLowerCase(),
         new Date().toLocaleDateString()
       )
     );

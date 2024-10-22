@@ -50,6 +50,19 @@ export const routes: Routes = [
   },
   {
     path: 'ranking',
-    loadComponent: () => import('./pages/ranking/ranking.page').then( m => m.RankingPage)
+    loadComponent: () =>
+      import('./pages/ranking/ranking.page').then((m) => m.RankingPage),
+  },
+  {
+    path: 'list-dificil',
+    loadComponent: () => import('./pages/ranking/list-dificil/list-dificil.page').then( m => m.ListDificilPage)
+  },
+  {
+    path: 'list-facil',
+    loadComponent: () => import('./pages/ranking/list-facil/list-facil.page').then( m => m.ListFacilPage)
+  },
+  {
+    path: 'list-medio',
+    loadComponent: () => import('./pages/ranking/list-medio/list-medio.page').then( m => m.ListMedioPage)
   },
 ];

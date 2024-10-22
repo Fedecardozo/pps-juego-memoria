@@ -6,22 +6,46 @@ import { Resultado } from 'src/app/models/resultado';
 import { Alert } from 'src/app/models/alert';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-import { IonSpinner } from '@ionic/angular/standalone';
+import {
+  IonSpinner,
+  IonTabs,
+  IonTabBar,
+  IonTabButton,
+  IonIcon,
+} from '@ionic/angular/standalone';
+import { ListDificilPage } from './list-dificil/list-dificil.page';
+import { ListFacilPage } from './list-facil/list-facil.page';
+import { ListMedioPage } from './list-medio/list-medio.page';
 
 @Component({
   selector: 'app-ranking',
   templateUrl: './ranking.page.html',
   styleUrls: ['./ranking.page.scss'],
   standalone: true,
-  imports: [IonSpinner, CommonModule, FormsModule, RouterLink],
+  imports: [
+    IonIcon,
+    IonTabButton,
+    IonTabBar,
+    IonTabs,
+    IonSpinner,
+    CommonModule,
+    FormsModule,
+    RouterLink,
+    ListDificilPage,
+    ListFacilPage,
+    ListMedioPage,
+  ],
 })
 export class RankingPage implements OnInit {
   db: DbService = inject(DbService);
   res: Resultado[] = [];
   mejoresCinco: Resultado[] = [];
+  mejoresCincoMedio: Resultado[] = [];
+  mejoresCincoDificl: Resultado[] = [];
   spinner = true;
   router: Router = inject(Router);
   auth: UserService = inject(UserService);
+  nivel: number = 0;
 
   constructor() {}
 
@@ -38,12 +62,14 @@ export class RankingPage implements OnInit {
             item.nivel,
             item.fecha
           );
-          this.res.push(resAux);
+          this.cargarArray(resAux);
         });
-        this.res.sort((a, b) => parseInt(a.tiempo) - parseInt(b.tiempo));
-        this.mejoresCinco = this.res.slice(0, 5);
+        // this.res.sort((a, b) => parseInt(a.tiempo) - parseInt(b.tiempo));
+        // this.mejoresCinco = this.res.slice(0, 5);
         this.spinner = false;
-        console.log(this.mejoresCinco);
+        // console.log(this.mejoresCinco);
+        // console.log(this.mejoresCincoMedio);
+        // console.log(this.mejoresCincoDificl);
       });
   }
 
@@ -54,5 +80,23 @@ export class RankingPage implements OnInit {
         this.router.navigateByUrl('/login');
       }
     });
+  }
+
+  cambiarNivel(number: number) {
+    this.nivel = number;
+  }
+
+  cargarArray(res: Resultado) {
+    switch (res.nivel) {
+      case 'facil':
+        this.mejoresCinco.push(res);
+        break;
+      case 'medio':
+        this.mejoresCincoMedio.push(res);
+        break;
+      case 'dificil':
+        this.mejoresCincoDificl.push(res);
+        break;
+    }
   }
 }

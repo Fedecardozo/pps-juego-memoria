@@ -1,0 +1,17 @@
+<header class="title mt-2"><span>Mejores 5 resultados difícil</span></header>
+
+<ul class="responsive-table mt-2">
+  <li class="table-header">
+    <div class="col col-1">Usuario</div>
+    <div class="col col-2">Segundos</div>
+    <div class="col col-3">Fecha</div>
+  </li>
+  @for (item of this.mejoresCinco; track $index) {
+
+  <li class="table-row">
+    <div class="col col-1">{{item.user}}</div>
+    <div class="col col-2">{{item.tiempo}}</div>
+    <div class="col col-3">{{item.fecha}}</div>
+  </li>
+  }
+</ul>
